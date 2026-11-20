@@ -7,7 +7,7 @@ const state = {
   query: "",
   sort: "az",
   sentencesOnly: false,
-  expanded: new Set()
+  expanded: new Set() 
 };
 
 const $ = (id) => document.getElementById(id);
