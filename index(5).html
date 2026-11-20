@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f5f0">
+  <title>Thai Vocabulary Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#202522;--muted:#747b75;--paper:#f7f5f0;--card:#fff;--line:#e8e7e0;--green:#315b49;--green2:#e8f0e9;--gold:#c49a53;--shadow:0 8px 30px rgba(35,45,38,.055)}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Sans","Noto Sans Thai",sans-serif}
+    .shell{max-width:1180px;margin:auto;padding:34px 28px 70px}.topline{display:flex;justify-content:space-between;align-items:center;margin-bottom:38px}
+    .brand{font-weight:700;letter-spacing:.02em}.brand span{color:var(--green)}.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700}
+    .hero{display:grid;grid-template-columns:1.35fr .65fr;gap:30px;align-items:end;margin-bottom:32px}.hero h1{font-size:clamp(38px,6vw,64px);line-height:1.03;letter-spacing:-.055em;margin:12px 0 14px;max-width:700px}.hero p{color:var(--muted);max-width:580px;line-height:1.7;margin:0}
+    .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}.stat strong{font-size:28px;display:block;color:var(--green)}.stat small{color:var(--muted)}
+    .toolbar{display:flex;gap:12px;align-items:center;margin:30px 0 18px}.searchwrap{flex:1;position:relative}.searchwrap span{position:absolute;left:16px;top:13px;color:#8a918b}.search{width:100%;border:1px solid var(--line);border-radius:12px;padding:14px 16px 14px 44px;font:inherit;background:white;outline:none}.search:focus{border-color:var(--green)}
+    .toggle{border:1px solid var(--line);background:white;border-radius:12px;padding:13px 16px;font:inherit;cursor:pointer;color:var(--ink)}.toggle.active{background:var(--green2);border-color:#c8d9cb;color:var(--green)}
+    .categorybar{display:flex;gap:8px;overflow:auto;padding:2px 0 14px;scrollbar-width:thin}.chip{white-space:nowrap;border:1px solid var(--line);background:transparent;color:#59615b;padding:9px 13px;border-radius:999px;font:inherit;font-size:13px;cursor:pointer}.chip.active{background:var(--green);border-color:var(--green);color:white}
+    .resultshead{display:flex;justify-content:space-between;align-items:center;margin:12px 0 14px}.resultshead h2{font-size:17px;margin:0}.resultshead span{font-size:13px;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.wordcard{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:19px 20px;box-shadow:var(--shadow);transition:transform .18s,border-color .18s}.wordcard:hover{transform:translateY(-2px);border-color:#cbd8ce}
+    .cardtop{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.thai{font-family:"Noto Sans Thai",sans-serif;font-size:25px;font-weight:600;line-height:1.45}.meaning{font-size:14px;color:#5e675f;margin-top:5px;line-height:1.55}.category{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--green);background:var(--green2);padding:6px 8px;border-radius:999px;white-space:nowrap}
+    .cardactions{display:flex;gap:8px;margin-top:16px;align-items:center}.smallbtn{border:1px solid var(--line);background:white;border-radius:9px;padding:8px 11px;font:inherit;font-size:12px;cursor:pointer;color:#505a52}.smallbtn:hover{border-color:var(--green);color:var(--green)}.smallbtn.fav{color:#a35d46;border-color:#e8cfc5;background:#fff8f4}
+    .examples{display:none;border-top:1px solid var(--line);margin-top:15px;padding-top:13px}.wordcard.expanded .examples{display:block}.example{padding:10px 0}.example+.example{border-top:1px dashed #e9e8e2}.example .thaisentence{font-family:"Noto Sans Thai",sans-serif;font-size:15px;line-height:1.8}.example .engsentence{font-size:13px;line-height:1.6;color:var(--muted);margin-top:4px}
+    .empty{grid-column:1/-1;text-align:center;padding:55px 20px;background:white;border:1px dashed var(--line);border-radius:16px;color:var(--muted)}
+    .footer{text-align:center;color:#929890;font-size:12px;margin-top:40px}.hidden{display:none!important}
+    @media(max-width:760px){.shell{padding:23px 16px 50px}.hero{grid-template-columns:1fr;gap:20px}.stats{max-width:420px}.toolbar{align-items:stretch}.toggle{padding:12px}.grid{grid-template-columns:1fr}.topline{margin-bottom:28px}.hero h1{font-size:46px}}
+    @media(max-width:390px){.toolbar{flex-wrap:wrap}.searchwrap{flex-basis:100%}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="topline">
+      <div class="brand">THAI<span>NOTES</span></div>
+      <div class="eyebrow">Personal language library</div>
+    </div>
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Learn through real conversations</div>
+        <h1>Words worth<br>remembering.</h1>
+        <p>A curated library of useful Thai vocabulary and natural example sentences collected from 11 transcripts. Explore by topic, search by meaning, and save the words you want to revisit.</p>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong id="wordCount">—</strong><small>Unique words & expressions</small></div>
+        <div class="stat"><strong id="sentenceCount">—</strong><small>Example sentence pairs</small></div>
+      </div>
+    </section>
+    <section>
+      <div class="toolbar">
+        <div class="searchwrap"><span>⌕</span><input id="searchInput" class="search" type="search" placeholder="Search Thai, English meaning or sentence…"></div>
+        <button id="favoritesBtn" class="toggle" type="button">♡ Saved</button>
+      </div>
+      <div id="categoryBar" class="categorybar"></div>
+      <div class="resultshead"><h2 id="sectionTitle">All vocabulary</h2><span id="resultCount"></span></div>
+      <div id="wordGrid" class="grid" aria-live="polite"></div>
+    </section>
+    <div class="footer">ThaiNotes · Built from your 11 transcript collections</div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
