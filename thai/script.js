@@ -6,7 +6,7 @@ const state = {
   category: "All",
   query: "",
   favoritesOnly: false,
-  favorites: new Set(
+  favorites: new Set( 
     JSON.parse(localStorage.getItem("thaiNotesFavorites") || "[]")
   )
 };
