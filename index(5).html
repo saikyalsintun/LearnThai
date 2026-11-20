@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Chinese vocabulary and example sentence study library.">
+  <title>Chinese Vocabulary Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+* { box-sizing: border-box; }
+:root {
+  --ink: #202a35; --muted: #718096; --line: #e8edf2;
+  --paper: #f6f8fb; --white: #fff; --accent: #315d78;
+  --accent-soft: #eaf2f7;
+}
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: "DM Sans", sans-serif; }
+.hero { background: linear-gradient(135deg, #172b3b, #315d78); color: #fff; padding: 54px 22px 44px; }
+.hero-inner, .container { max-width: 1100px; margin: 0 auto; }
+.eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .2em; opacity: .72; }
+h1 { margin: 13px 0 8px; font-size: clamp(30px, 5vw, 48px); letter-spacing: -.04em; }
+h1 span { display: block; margin-top: 4px; font-size: clamp(17px, 2.5vw, 22px); font-weight: 500; letter-spacing: 0; opacity: .83; }
+.subtitle { margin: 12px 0 25px; color: #d6e2ea; }
+.stats { display: flex; gap: 34px; flex-wrap: wrap; }
+.stat { display: flex; flex-direction: column; gap: 2px; }
+.stat strong { font-size: 23px; }
+.stat span { font-size: 12px; color: #d6e2ea; }
+.container { padding: 30px 22px 60px; }
+.toolbar { background: #fff; padding: 18px; border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 5px 20px #24384b08; }
+.search-wrap { display: flex; align-items: center; gap: 10px; border: 1px solid #dce4eb; border-radius: 10px; padding: 0 13px; height: 48px; }
+.search-icon { font-size: 24px; color: var(--muted); }
+.search-wrap input { flex: 1; min-width: 0; border: 0; outline: 0; font: inherit; color: var(--ink); }
+.clear-btn { border: 0; background: transparent; color: var(--muted); font-size: 22px; cursor: pointer; display: none; }
+.clear-btn.visible { display: block; }
+.toolbar-row { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 14px; font-size: 13px; color: var(--muted); }
+.sort-label { margin-left: 2px; }
+select { border: 1px solid #dce4eb; border-radius: 8px; background: white; padding: 8px 10px; font: inherit; color: var(--ink); }
+.check-label { margin-left: auto; display: flex; align-items: center; gap: 7px; cursor: pointer; }
+.alphabet { display: flex; flex-wrap: wrap; gap: 7px; margin: 22px 0 28px; }
+.letter-btn { min-width: 42px; border: 1px solid var(--line); border-radius: 9px; background: #fff; padding: 8px 9px 6px; color: #425466; font-weight: 700; cursor: pointer; }
+.letter-btn small { display: block; margin-top: 2px; font-size: 9px; font-weight: 500; color: #91a0ad; }
+.letter-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+.letter-btn.active small { color: #dceaf2; }
+.results-heading { display: flex; justify-content: space-between; align-items: end; gap: 15px; margin-bottom: 13px; }
+h2 { font-size: 19px; margin: 0 0 4px; }
+.results-heading p { margin: 0; font-size: 12px; color: var(--muted); }
+.text-button { border: 0; background: transparent; color: var(--accent); font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; padding: 8px 0; }
+.word-list { display: grid; gap: 9px; }
+.word-card { border: 1px solid var(--line); border-radius: 12px; background: white; overflow: hidden; }
+.word-head { width: 100%; display: grid; grid-template-columns: 42px minmax(125px, 1.1fr) minmax(150px, 1.6fr) 90px 22px; align-items: center; gap: 12px; border: 0; background: white; padding: 15px 17px; text-align: left; cursor: pointer; }
+.word-head:hover { background: #fbfdfe; }
+.word-number { color: #a0acb8; font-size: 11px; font-variant-numeric: tabular-nums; }
+.word-main { display: flex; flex-direction: column; gap: 3px; }
+.hanzi { font-family: "Noto Sans SC", sans-serif; font-size: 21px; font-weight: 600; }
+.pinyin { color: #668092; font-size: 12px; }
+.meaning { font-size: 13px; line-height: 1.5; }
+.example-count { color: #8a98a5; font-size: 11px; text-align: right; }
+.chevron { color: var(--accent); font-size: 21px; text-align: right; }
+.word-details { border-top: 1px solid var(--line); padding: 4px 20px 15px 72px; }
+.example { padding: 12px 0 8px; border-bottom: 1px solid #f0f3f6; }
+.example:last-child { border-bottom: 0; }
+.example-label { color: #91a0ad; font-size: 9px; font-weight: 700; letter-spacing: .13em; }
+.sentence-zh { font-family: "Noto Sans SC", sans-serif; font-size: 16px; line-height: 1.8; margin: 7px 0 2px; }
+.sentence-en { margin: 0; color: #697887; font-size: 13px; line-height: 1.6; }
+.no-example { color: var(--muted); font-size: 13px; }
+.empty { text-align: center; padding: 55px 15px; background: white; border: 1px dashed #dce4eb; border-radius: 14px; }
+.empty-icon { font-family: "Noto Sans SC", sans-serif; font-size: 38px; color: #a7bac8; }
+.empty h3 { margin: 8px 0; }
+.empty p { color: var(--muted); font-size: 13px; }
+.primary-btn { border: 0; border-radius: 8px; background: var(--accent); color: white; padding: 10px 16px; cursor: pointer; }
+.hidden { display: none !important; }
+.error { padding: 20px; border-radius: 10px; background: #fff1f0; color: #9c3028; }
+footer { margin-top: 28px; color: #98a4af; font-size: 11px; text-align: center; line-height: 1.6; }
+@media (max-width: 650px) {
+  .hero { padding: 38px 18px 32px; }
+  .container { padding: 20px 13px 45px; }
+  .stats { gap: 22px; }
+  .toolbar { padding: 13px; }
+  .check-label { margin-left: 0; }
+  .word-head { grid-template-columns: 28px 1fr 22px; gap: 9px; padding: 13px 11px; }
+  .meaning { grid-column: 2; grid-row: 2; }
+  .example-count { display: none; }
+  .chevron { grid-column: 3; grid-row: 1 / span 2; }
+  .word-details { padding: 4px 13px 13px 48px; }
+}
+
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">CHINESE STUDY LIBRARY</div>
+      <h1>词汇收藏 <span>Vocabulary Library</span></h1>
+      <p class="subtitle">Explore vocabulary, meanings, pinyin and real example sentences.</p>
+      <div class="stats">
+        <div class="stat"><strong id="wordCount">—</strong><span>Words</span></div>
+        <div class="stat"><strong id="sentenceCount">—</strong><span>Example sentences</span></div>
+        <div class="stat"><strong id="letterCount">—</strong><span>Alphabet groups</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="toolbar" aria-label="Vocabulary controls">
+      <label class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <input id="searchInput" type="search" placeholder="Search Chinese, pinyin, English or sentences..." autocomplete="off">
+        <button id="clearSearch" class="clear-btn" type="button" aria-label="Clear search">×</button>
+      </label>
+      <div class="toolbar-row">
+        <label class="sort-label" for="sortSelect">Sort by</label>
+        <select id="sortSelect">
+          <option value="az">Pinyin A–Z</option>
+          <option value="za">Pinyin Z–A</option>
+          <option value="hanzi">Chinese characters</option>
+        </select>
+        <label class="check-label"><input type="checkbox" id="sentencesOnly"> With examples only</label>
+      </div>
+    </section>
+
+    <nav id="alphabet" class="alphabet" aria-label="Filter by pinyin letter"></nav>
+    <div class="results-heading">
+      <div><h2 id="sectionTitle">All vocabulary</h2><p id="resultSummary">Loading vocabulary…</p></div>
+      <button id="expandAll" class="text-button" type="button">Expand all</button>
+    </div>
+    <section id="wordList" class="word-list" aria-live="polite"></section>
+    <div id="emptyState" class="empty hidden">
+      <div class="empty-icon">词</div>
+      <h3>No matching vocabulary</h3>
+      <p>Try another word, pinyin spelling or English meaning.</p>
+      <button id="resetFilters" class="primary-btn" type="button">Reset filters</button>
+    </div>
+    <footer>Alphabetical order is based on Hanyu Pinyin, ignoring tone marks. Example sentences are kept with their English translations.</footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
