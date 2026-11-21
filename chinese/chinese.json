@@ -5,19 +5,7 @@
   "totalSentences": 1027,
   "sortOrder": "Alphabetical by Hanyu Pinyin (tone marks ignored)",
   "entries": [ 
-    {
-      "word": "哎呀",
-      "pinyin": "āiyā",
-      "meaning": "oh!; goodness!",
-      "sentences": [
-        {
-          "zh": "哎呀，我忘了带手机！",
-          "en": "Oh! I forgot to bring my phone!"
-        }
-      ],
-      "letter": "A"
-    },
-    {
+     {
       "word": "按摩",
       "pinyin": "àn mó",
       "meaning": "to massage; massage",
